@@ -3,7 +3,7 @@ export default () => {
      <html lang="en">
       <head>
        <meta charset="utf-8">
-       <title>Set up full stack MERN application</title>
+       <title>MERN - STACK</title>
       </head>
       <body>
        <div id="root"></div>

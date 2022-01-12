@@ -1,6 +1,10 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const path = require('path')
 const webpack = require('webpack')
 const CURRENT_WORKING_DIR = process.cwd()
+
+const stylesHandler = 'style-loader';
 
 const config={
     mode: 'production',
@@ -10,7 +14,8 @@ const config={
     output: {
         path: path.join(CURRENT_WORKING_DIR, '/dist'),
         filename: 'bundle.js',
-        publicPath: '/dist/'
+        publicPath: '/dist/',
+        clean: true
     },
     module: {
         rules: [
@@ -20,7 +25,11 @@ const config={
               use: [
                 'babel-loader'
               ]
-            }
+            },
+            {
+              test: /\.css$/i,
+              use: [stylesHandler, 'css-loader', 'postcss-loader'],
+            },
           ]
     }
 }

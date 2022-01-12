@@ -1,6 +1,9 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path=require('path');
 const webpack=require('webpack');
 const CURRENT_WORKING_DIR=process.cwd();
+
+const stylesHandler = 'style-loader';
 
 const config={
     name: 'browser',
@@ -13,7 +16,8 @@ const config={
     output:{
         path: path.join(CURRENT_WORKING_DIR, '/dist'),
         filename: 'bundle.js',
-        publicPath: '/dist/'
+        publicPath: '/dist/',
+        clean: true
     },
     module:{
         rules: [
@@ -21,10 +25,17 @@ const config={
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 use: ['babel-loader']
-            }
+            },
+            {
+                test: /\.css$/i,
+                use: [stylesHandler, 'css-loader', 'postcss-loader'],
+            },
         ]
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            template: 'template.js',
+        }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
     ],
